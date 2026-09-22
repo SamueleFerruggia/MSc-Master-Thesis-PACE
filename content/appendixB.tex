@@ -1,0 +1,105 @@
+\chapter{Hyperparameters}\label{ch:apdb}
+
+\markboth{Appendix B}{}
+
+This appendix reports the hyperparameters used for all training runs in this thesis. The rationale for keeping PACE fixed while varying only the input distribution is given in Section~\ref{sec:pace-extensions}; here we list the concrete values used across all combinations of Zipfian concentration $\alpha$ and seed.
+
+\section{Bandit Hyperparameters}
+\label{sec:appendix-bandit-hyperparameters}
+
+The multi-armed bandit that selects candidate abstractions for adoption uses the following parameters. Note the distinction between the Zipfian concentration $\alpha$ (referred to throughout the thesis as the concentration parameter of the input distribution) and the bandit's own learning rate parameter, also named $\alpha$ in the original PACE paper. To avoid ambiguity, we call the latter $\alpha_{\text{bandit}}$ in this table.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\toprule
+Parameter & Symbol & Value \\
+\midrule
+$\varepsilon$-greedy exploration parameter & $\varepsilon$ & 0.1 \\
+Bandit learning rate & $\alpha_{\text{bandit}}$ & 0.5 \\
+Q-value initialisation for new abstractions & $q_{\text{init}}$\footnotemark & 0.0 \\
+Program length discount factor & $\gamma$ & 0.99 \\
+Number of programs kept per goal-scene & \texttt{num\_to\_keep} & 3 \\
+\bottomrule
+\end{tabular}
+\caption{Bandit hyperparameters used across the main experimental campaign.}
+\label{tab:bandit-hyperparameters}
+\end{table}
+
+The value $q_{\text{init}} = 0.0$ corresponds to the pessimistic initialisation strategy discussed in the original PACE paper~\cite{thomas_pace_2025}, which the authors show reduces cumulative regret compared to an optimistic initialisation by preventing the bandit from forcing a new abstraction into use before the listener has had the opportunity to interpret it. The value $\gamma = 0.99$ introduces a small bias for shorter programs when computing the value of a program as the product of its constituent Q-values.
+
+\section{Neural Agent Hyperparameters}
+\label{sec:appendix-neural-hyperparameters}
+
+The speaker and listener are both implemented as fully connected neural networks with a hidden layer of size 200. The following parameters are shared across all runs.
+
+\begin{table}[htbp]
+\centering
+\begin{tabularx}{0.92\textwidth}{lX}
+\toprule
+Parameter & Value \\
+\midrule
+Speaker hidden layer size & 200 \\
+Listener hidden layer size & 200 \\
+Speaker output layer size (max vocabulary) & 30 \\
+Listener output layer size (grid size) & 81 \\
+Optimiser & Adam~\cite{kingma_adam_2014} \\
+Learning rate & 0.0009 \\
+Discrete relaxation & Gumbel-softmax with hard parameter (Jang et al., 2017) \\
+\bottomrule
+\end{tabularx}
+\caption{Neural agent hyperparameters shared across all runs.}
+\label{tab:neural-hyperparameters}
+\end{table}
+
+The speaker output layer is sized at 30 to allow for the two initial primitive actions plus up to 28 abstractions in the vocabulary. In practice, the number of adopted abstractions never approaches this ceiling across the experimental range studied in this thesis.
+
+\section{Training Schedule}
+\label{sec:appendix-training-schedule}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\toprule
+Parameter & Symbol & Value \\
+\midrule
+Communication epochs per step & $e$ & 40 \\
+Number of abstraction phases & $s$ & 20 \\
+Training set size & N/A & 930 scenes \\
+Test set size & N/A & 31 scenes \\
+\bottomrule
+\end{tabular}
+\caption{Training schedule used for every main training run.}
+\label{tab:training-schedule}
+\end{table}
+
+Each abstraction phase is preceded by 40 epochs of joint neural training on the Communication phase, during which the speaker and listener adapt to the current vocabulary via gradient descent. The Abstraction phase then considers introducing a new abstraction, and the loop repeats for 20 total steps. The values of $e$ and $s$ are those of the original PACE paper.
+
+\section{Dataset Configuration}
+\label{sec:appendix-dataset-configuration}
+
+The 961 goal-scenes in the dataset are constructed from 31 unique shapes, each corresponding to an uppercase or lowercase letter of the English alphabet, placed pairwise on a 9-by-9 grid. The split into training and test sets is fixed and determined by the seed:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{ll}
+\toprule
+Parameter & Value \\
+\midrule
+Total scenes & 961 \\
+Training scenes & 930 \\
+Test scenes & 31 \\
+\bottomrule
+\end{tabular}
+\caption{Dataset split used across the experimental campaign.}
+\label{tab:dataset-configuration}
+\end{table}
+
+The Zipfian concentration $\alpha$ varies from 0.00 to 3.00 in steps of 0.15, giving 21 $\alpha$ values in total. For each $\alpha$, the frequency of the scene at rank $k$ in the ranking is proportional to $1/k^\alpha$, with the ranking determined by the seed as described in Chapter~\ref{ch:technical}.
+
+\section{Relation to the Original PACE Paper}
+\label{sec:appendix-original-pace-relation}
+
+The hyperparameters above correspond to the PACE configuration reported by Thomas et al.~\cite{thomas_pace_2025}, with the experimental changes summarised in Section~\ref{sec:pace-extensions}. The original paper uses a uniform training distribution and reports results averaged over 16 seeds; this thesis uses the Zipfian family and 20 seeds per $\alpha$. All remaining hyperparameters are inherited from the original configuration wherever they were specified.
+
+The Greedy and No-abstractions baselines used to validate the reimplementation in Section~\ref{sec:framework-validation} use different values of $\varepsilon$, $\alpha_{\text{bandit}}$, and $q_{\text{init}}$ (see the original paper for their setup). These baselines are only used for validation of the reimplementation and are not part of the main experimental campaign.

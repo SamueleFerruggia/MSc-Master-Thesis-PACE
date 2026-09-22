@@ -1,0 +1,26 @@
+%\fancyhf{} % clear all header and footer fields
+%\fancyhead[RO,R]{\thepage} %RO=right odd, RE=right even
+%\renewcommand{\headrulewidth}{0pt}
+
+\begin{center}
+    %\Large
+    \textbf{The role of the communicative prior on collaborative artificial agents in language games}
+    
+    \vspace{0.4cm}
+    
+    \vspace{0.4cm}
+    \textbf{Samuele Maria Ferruggia}
+    
+    \vspace{0.9cm}
+    \textbf{Abstract}
+    
+\end{center}
+
+This thesis builds on PACE, an architecture introduced by Thomas et al.~\cite{thomas_pace_2025} in which two neural agents with no prior knowledge are trained on a referential task while a symbolic component decides when to introduce new abstractions into their shared vocabulary. PACE adapts a collaborative setting studied experimentally by McCarthy et al.~\cite{mccarthy_learning_2021}, where one person describes scenes and another reconstructs them, and the pair gradually develops a shared vocabulary of shortcuts. Because human participants bring a lifetime of prior visual and linguistic experience to the task, it is difficult to tell how much of that vocabulary is genuinely emergent. PACE addresses this limitation and shows that shared abstractions can emerge without prior bias.
+
+PACE was validated on uniform input, where every scene appears equally often, whereas natural linguistic input is strongly skewed. This thesis asks whether PACE's ability to develop shared vocabularies is robust under that kind of input asymmetry. We replace PACE's uniform distribution with a Zipfian family parametrised by a concentration parameter $\alpha$ (from 0.00, uniform, to 3.00, highly concentrated), add a cross-population evaluation pipeline, and run 420 training runs across 21 values of $\alpha$ and 20 seeds.
+
+The study is organised around three questions. At the level of individual populations, $\alpha$ shapes the internal structure of the emergent language non-monotonically: vocabulary size peaks at intermediate concentration and collapses at both extremes, because a rich vocabulary needs both repetition and diversity. Across populations, shared $\alpha$ does not guarantee shared vocabularies. Different orderings lead to divergent abstraction libraries, with similarity decreasing monotonically as $\alpha$ increases: populations share a common structural backbone at low concentration but lock into private vocabularies at high concentration. In cross-population interaction, adaptation difficulty depends far more on the shared concentration regime than on any pairwise distance, and cross-$\alpha$ adaptation is asymmetric. Concentrated speakers build vocabularies too specialised for others to interpret, a gap that persists even when the speaker adapts. The difficulty lies in the discrete vocabularies built during independent training rather than in the neural machinery connecting the agents.
+
+\vspace{1cm}
+\noindent \textbf{Keywords:} Emergent Communication, Neuro-symbolic AI, PACE Architecture, Zipfian Distributions, Compositionality, Cross-Population Communication.

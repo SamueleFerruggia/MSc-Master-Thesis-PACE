@@ -1,0 +1,74 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-program = pdflatex
+
+\documentclass[%
+    12pt, % font size
+    oneside, % if it should be done for printing on two-sides or not
+    a4paper, % format of paper
+    notitlepage, % to remove the title page
+]{article}
+
+\input{common/packages}
+
+\input{common/summary/packages.tex}
+
+\input{common/package_config}
+
+\input{common/summary/package_config.tex}
+
+\input{common/new_commands}
+
+\input{common/thesis_info.tex}
+
+\addbibresource{bibliography.bib}
+
+% to load the glossaries, not needed if using bib2gls
+\input{glossaries.tex}
+\makeglossaries
+
+\begin{document}
+
+\input{common/config}
+
+\input{common/summary/config.tex}
+
+\maketitle
+
+\section*{Motivation and objectives}
+
+This thesis investigates how the distribution of communicative experience shapes the vocabularies developed by collaborative artificial agents. It builds on PACE (Procedural Abstractions for Communicating Efficiently), a neuro-symbolic architecture in which two neural agents learn to communicate while a symbolic mechanism introduces reusable abstractions. Unlike human participants, these agents have no prior visual or linguistic training, making it possible to study the formation of conventions in a controlled setting. The focus is on the communicative prior understood as the frequency distribution of the scenes encountered during training.
+
+Whereas the original PACE setup uses uniform input, this work introduces Zipfian distributions to vary how strongly experience concentrates on a few scenes. Three research questions guide the analysis: how concentration affects the internal structure of the emergent vocabulary; whether independently trained populations develop different vocabularies under the same concentration profile; and how these differences affect communication when agents meet unfamiliar partners.
+
+\section*{Architecture and experimental design}
+
+PACE implements an architect--builder game on a $9\times9$ grid. A speaker guides a listener in reconstructing a target scene by communicating the actions of a drawing program. Initially, programs use only horizontal and vertical block-placement primitives. During training, recurring subsequences can become abstractions, allowing several primitive actions to be represented by a single reusable symbol. The architecture alternates program selection, neural communication training, and abstraction discovery. Candidate abstractions are ranked using a minimum-description-length (MDL) criterion, while an $\varepsilon$-greedy bandit balances shorter programs against successful reconstruction. The resulting symbolic libraries make the learned conventions directly inspectable.
+
+The dataset contains 961 scenes, corresponding to all ordered pairs of 31 shapes, with 930 training scenes and 31 held-out test scenes. Training probabilities follow $p(k)\propto k^{-\alpha}$, where $k$ is a scene's position in a seed-specific ranking. At $\alpha=0$, input is uniform; increasing $\alpha$ concentrates exposure on the highest-ranked scenes. The campaign comprises 420 runs: 21 concentration values from 0.00 to 3.00, in increments of 0.15, and 20 seeds per value. Architecture and hyperparameters remain fixed. Seeds determine both neural initialisation and scene-ranking permutations, so variation across seeds includes both sources rather than isolating ranking effects alone.
+
+The analysis measures abstraction adoption, program compression, held-out reconstruction accuracy, and overlap between independently learned libraries. A cross-population pipeline then pairs speakers and listeners from different runs and tracks their adaptation during joint training. Additional experiments vary speaker adaptation and exploration settings, and examine mixed input distributions and distribution shifts.
+
+\section*{Main findings}
+
+\paragraph{Vocabulary development is non-monotonic.}
+Concentration does not simply reduce vocabulary size. Instead, three regimes emerge. Near-uniform input provides broad coverage but weak frequency preferences, making abstraction adoption relatively unstable. Intermediate concentration combines repeated exposure to useful patterns with enough diversity to sustain discovery, producing the largest and most stable libraries. Adoption peaks around $\alpha=1.80$. At high concentration, only a few scenes receive substantial exposure, restricting the candidate pool and reducing the mean adopted library to approximately 3.6 abstractions at $\alpha=3.00$.
+
+Compression dynamics support this balance between repetition and diversity: highly concentrated input produces less compression within the same training budget. Adoption also reflects more than raw frequency. The bandit selects the highest-MDL candidate in 78.2\% of adoption decisions, consistent with a preference for compressive value, which combines recurrence with subsequence length. At extreme concentration, frequency and MDL rankings become harder to distinguish because so few patterns remain well represented.
+
+\paragraph{Shared concentration does not imply shared conventions.}
+Libraries are compared through their underlying primitive sequences rather than arbitrary token identifiers, using Jaccard similarity and an overlap coefficient. A null model based on random sampling from the pooled abstractions provides a baseline for chance agreement. Average cross-population overlap decreases as concentration increases. At low and moderate concentration, overlap exceeds the null expectation, indicating convergence on a shared structural core. At high concentration, overlap falls below that baseline: populations develop specialised libraries tied to their own frequent scenes.
+
+Qualitative inspection connects adopted abstractions to substructures of each population's top-ranked shape pairs. These observations support a form of dialect formation: agents exposed to the same distributional shape can develop different symbolic conventions because their experience emphasises different content. The term describes population-specific libraries in this task, rather than a claim that the resulting codes reproduce human dialects.
+
+\paragraph{Cross-population adaptation depends on the training regime.}
+When partners share $\alpha$ but come from different populations, adaptation difficulty depends more strongly on concentration than on the tested pairwise distance measures. Adaptation is fast at low concentration, slower at intermediate concentration, and unsuccessful within the 20-epoch evaluation horizon at high concentration. Within a fixed regime, the three distance measures offer limited discrimination between easier and harder pairings; library overlap shows only a weak effect at $\alpha=1.80$.
+
+Pairings across different concentration values reveal an asymmetry. Speakers trained on broad input communicate more robustly with unfamiliar listeners, whereas highly concentrated speakers use vocabularies that transfer poorly beyond their original conditions. Allowing the speaker to adapt neurally does not remove this gap in the tested configurations. This points to a bottleneck in the coverage and compatibility of the learned symbolic libraries, rather than a mismatch resolved by neural adjustment alone. Distribution-shift case studies further show that rising accuracy need not imply renewed abstraction use: neural recovery and symbolic reorganisation can follow different trajectories.
+
+\section*{Conclusions and limitations}
+
+The principal contribution is a controlled empirical framework linking input concentration to vocabulary development, cross-population divergence, and adaptation. The findings suggest that reusable conventions require both repetition and diversity, while successful communication within a population does not guarantee transfer to unfamiliar partners. PACE's explicit abstractions help distinguish changes in symbolic vocabulary from changes in neural communication.
+
+These conclusions remain specific to the architecture, finite scene inventory, and training horizon studied. Several cross-population modifications are pilot-scale, the cross-concentration experiments use two speaker seeds, and some distribution-shift analyses use a single seed. Longer adaptation could also change outcomes classified as unsuccessful within 20 epochs. Future work should broaden seed coverage, extend training, measure vocabulary usage more fully, and separate initial intelligibility from subsequent learning. Richer environments and networks of interacting populations would test whether the same balance between shared structure and local specialisation persists beyond this setting.
+
+\end{document}

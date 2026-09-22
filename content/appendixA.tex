@@ -1,0 +1,31 @@
+\chapter{Seed Pool}\label{ch:apda}
+
+\markboth{Appendix A}{}
+
+All experiments in this thesis use the following pool of 20 random seeds:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{cc|cc}
+\toprule
+Position & Seed & Position & Seed \\
+\midrule
+1 & 42 & 11 & 233 \\
+2 & 123 & 12 & 277 \\
+3 & 7 & 13 & 311 \\
+4 & 13 & 14 & 347 \\
+5 & 29 & 15 & 389 \\
+6 & 53 & 16 & 421 \\
+7 & 71 & 17 & 463 \\
+8 & 97 & 18 & 613 \\
+9 & 151 & 19 & 557 \\
+10 & 199 & 20 & 601 \\
+\bottomrule
+\end{tabular}
+\caption{Pool of random seeds used across the experimental campaign.}
+\label{tab:seed-pool}
+\end{table}
+
+For each combination of $\alpha$ (the Zipfian concentration) and seed, the seed value controls two independent sources of randomness within the training run: the initialisation of the two neural networks (speaker and listener), and the permutation used to build the Zipfian dataset from the pool of 961 unique scenes. Fixing the seed therefore fixes both the neural starting point and the specific assignment of scenes to positions in the frequency ranking of that population.
+
+Twenty seeds were chosen because this is the largest pool that fits within the compute budget available on the C3SE Vera cluster while keeping the full grid of 20 seeds $\times$ 21 $\alpha$ values (420 runs) tractable. The first two seeds (42 and 123) served as pilot seeds early in the project and are used in Chapters~\ref{ch:rq2} and~\ref{ch:rq3} for qualitative analyses when a single reference is needed.
