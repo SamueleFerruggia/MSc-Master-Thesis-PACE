@@ -50,7 +50,7 @@ PACE & 9.94 & 5.33 \\
 
 The No abstractions baseline shows no compression, as expected: without the Abstraction phase, the vocabulary consists only of the two primitives and no subsequences are ever replaced by shorter tokens. The Greedy variant compresses aggressively, reaching a final mean length of 3.20, while PACE compresses more moderately, converging to 5.33. This ordering matches the original paper's Figure 3 (left), where PACE settles around $4.92 \pm 0.20$ and Greedy compresses further.
 
-The small discrepancy in the final PACE length (5.33 in our run vs. $4.92 \pm 0.20$ in the paper) is within the range of seed-to-seed variability that the paper reports across its 16 seeds. The convergence pattern, a rapid initial drop over the first several steps followed by a plateau, matches the shape of the original curve.
+Our final PACE length (5.33) differs from the $4.92 \pm 0.20$ reported in the paper, and we do not treat this as agreement within the seed-to-seed variability the paper reports across its 16 seeds. The convergence pattern, a rapid initial drop over the first several steps followed by a plateau, matches the shape of the original curve.
 
 \section{Accuracy Results}
 \label{sec:appendix-accuracy-results}
@@ -74,7 +74,7 @@ PACE & 0.998 & 0.998 \\
 
 The No abstractions baseline reaches perfect accuracy because it never introduces any new tokens: the neural agents only need to align on two primitives, and 40 epochs of joint training per step are sufficient. PACE maintains accuracy close to 1.00 throughout training, with a minimum of 0.989 across the 20 steps, because the bandit only adopts abstractions that the listener can interpret without disrupting communication. The Greedy variant, by contrast, shows the accuracy collapse that the original paper reports: forced to adopt new abstractions at every step regardless of interpretability, its accuracy drops progressively as training goes on, ending at 0.62.
 
-This ordering, No abstractions $\approx$ PACE $>$ Greedy, matches Figure 3 (right) of Thomas et al.~\cite{thomas_pace_2025}, and confirms that the trade-off between compression and interpretability is being handled by the bandit as intended.
+This ordering, No abstractions $\approx$ PACE $>$ Greedy, matches Figure 3 (right) of Thomas et al.~\cite{thomas_pace_2025}, and shows that the trade-off between compression and interpretability is being handled by the bandit as intended.
 
 \section{Number of Adopted Abstractions}
 \label{sec:appendix-adopted-abstractions}

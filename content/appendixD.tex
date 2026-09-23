@@ -2,7 +2,7 @@
 
 \markboth{Appendix D}{}
 
-Chapter~\ref{ch:technical} introduces the Zipfian family of training distributions parametrised by the concentration $\alpha$, and characterises how concentration grows with $\alpha$ through the KL divergence with respect to the uniform baseline. This appendix reports four additional aggregate measures of concentration computed on the same distributions: Shannon entropy, the Gini coefficient, Simpson diversity, and the imbalance ratio. All four are computed on the pair frequency distribution of a representative seed (seed 42), at every $\alpha$ in the range from 0.00 to 3.00. Because the distribution is Zipfian by construction, these measures are not independent findings but a verification: their agreement across $\alpha$ confirms that the intended concentration effect manifests consistently under several standard measures of inequality.
+Chapter~\ref{ch:technical} introduces the Zipfian family of training distributions parametrised by the concentration $\alpha$, and characterises how concentration grows with $\alpha$ through the KL divergence with respect to the uniform baseline. This appendix reports four additional aggregate measures of concentration computed on the same distributions: Shannon entropy, the Gini coefficient, Simpson diversity, and the imbalance ratio. All four are computed on the pair frequency distribution of a representative seed (seed 42), at every $\alpha$ in the range from 0.00 to 3.00. Because the distribution is Zipfian by construction, these measures are a verification rather than independent findings: their agreement across $\alpha$ confirms that the intended concentration effect manifests consistently under several standard measures of inequality.
 
 \section{Shannon Entropy}
 \label{sec:appendix-shannon-entropy}
@@ -79,7 +79,7 @@ The imbalance ratio grows sharply with $\alpha$. At low concentration the most f
 \section{Consistency of the Four Metrics}
 \label{sec:appendix-metric-consistency}
 
-The four metrics all move in the direction consistent with a single interpretation: as $\alpha$ grows, a smaller subset of pairs accounts for a larger share of the total training exposures. They differ in what they emphasise, total uncertainty for Shannon, effective diversity for Simpson, aggregate inequality for Gini, and tail asymmetry for the imbalance ratio, but their qualitative agreement across the $\alpha$ range confirms that the Zipfian construction produces the intended monotone concentration effect.
+The four metrics all move in the direction consistent with a single interpretation: as $\alpha$ grows, a smaller subset of pairs accounts for a larger share of the total training exposures. They differ in what they emphasise: total uncertainty for Shannon, effective diversity for Simpson, aggregate inequality for Gini, and tail asymmetry for the imbalance ratio. Their qualitative agreement across the $\alpha$ range confirms that the Zipfian construction produces the intended monotone concentration effect.
 
 \section{Per-$\alpha$ Snapshots of the KL Divergence}
 \label{sec:appendix-kl-snapshots}
@@ -122,6 +122,7 @@ Each snapshot compares the MDL distribution at that $\alpha$ against the uniform
 \end{figure}
 
 The three snapshots trace out a coherent progression. At $\alpha = 0.60$, the two curves are close throughout most of their range and the KL is modest. At $\alpha = 1.80$, the concentrated distribution dominates the uniform one across the entire body of the ranking, and the KL is substantial. At $\alpha = 3.00$, the two distributions become almost disjoint: the concentrated one has very few unique subsequences (a fraction of the roughly 8771 that appear under the uniform baseline), and those that survive have MDL scores an order of magnitude higher than under the uniform baseline.
+
 \section{Alternative Visualisations of the KL Divergence}
 \label{sec:appendix-kl-alternative-visualisations}
 

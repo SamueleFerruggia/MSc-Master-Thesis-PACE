@@ -26,7 +26,7 @@ Number of programs kept per goal-scene & \texttt{num\_to\_keep} & 3 \\
 \label{tab:bandit-hyperparameters}
 \end{table}
 
-The value $q_{\text{init}} = 0.0$ corresponds to the pessimistic initialisation strategy discussed in the original PACE paper~\cite{thomas_pace_2025}, which the authors show reduces cumulative regret compared to an optimistic initialisation by preventing the bandit from forcing a new abstraction into use before the listener has had the opportunity to interpret it. The value $\gamma = 0.99$ introduces a small bias for shorter programs when computing the value of a program as the product of its constituent Q-values.
+The value $q_{\text{init}} = 0.0$ corresponds to the pessimistic initialisation strategy discussed in the original PACE paper~\cite{thomas_pace_2025}. The authors show that it reduces cumulative regret compared to an optimistic initialisation, because it prevents the bandit from forcing a new abstraction into use before the listener has had the opportunity to interpret it. The value $\gamma = 0.99$ introduces a small bias for shorter programs when computing the value of a program as the product of its constituent Q-values.
 
 \section{Neural Agent Hyperparameters}
 \label{sec:appendix-neural-hyperparameters}
@@ -45,7 +45,7 @@ Speaker output layer size (max vocabulary) & 30 \\
 Listener output layer size (grid size) & 81 \\
 Optimiser & Adam~\cite{kingma_adam_2014} \\
 Learning rate & 0.0009 \\
-Discrete relaxation & Gumbel-softmax with hard parameter (Jang et al., 2017) \\
+Discrete relaxation & Gumbel-softmax with hard parameter~\cite{jang_categorical_2017} \\
 \bottomrule
 \end{tabularx}
 \caption{Neural agent hyperparameters shared across all runs.}

@@ -26,6 +26,6 @@ Position & Seed & Position & Seed \\
 \label{tab:seed-pool}
 \end{table}
 
-For each combination of $\alpha$ (the Zipfian concentration) and seed, the seed value controls two independent sources of randomness within the training run: the initialisation of the two neural networks (speaker and listener), and the permutation used to build the Zipfian dataset from the pool of 961 unique scenes. Fixing the seed therefore fixes both the neural starting point and the specific assignment of scenes to positions in the frequency ranking of that population.
+For each combination of $\alpha$ (the Zipfian concentration) and seed, the seed value controls two independent sources of randomness within the training run. The first is the initialisation of the two neural networks (speaker and listener); the second is the permutation used to build the Zipfian dataset from the pool of 961 unique scenes. Fixing the seed therefore fixes both the neural starting point and the specific assignment of scenes to positions in the frequency ranking of that population.
 
 Twenty seeds were chosen because this is the largest pool that fits within the compute budget available on the C3SE Vera cluster while keeping the full grid of 20 seeds $\times$ 21 $\alpha$ values (420 runs) tractable. The first two seeds (42 and 123) served as pilot seeds early in the project and are used in Chapters~\ref{ch:rq2} and~\ref{ch:rq3} for qualitative analyses when a single reference is needed.
