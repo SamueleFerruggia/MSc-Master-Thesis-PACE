@@ -58,7 +58,7 @@ The aggregate counts become more interpretable when we look at the abstractions 
 \section{How the Emergent Language Compresses Over Training}
 \label{sec:rq1-compression-dynamics}
 
-A second aspect of the internal structure of the emergent language is how it evolves during training. Two quantities are informative here: the mean length of the messages the speaker produces, which measures how compressed the emergent language is at each step, and the reconstruction accuracy on the held-out test set, which measures how well the two agents understand each other. Every time a new abstraction is adopted, the corresponding subsequence of primitives in the messages gets replaced by a single abstraction, and the mean length drops.
+A second aspect of the internal structure of the emergent language is how it evolves during training. Two quantities are informative here: the mean length of the messages the speaker produces, which measures how compressed the speaker's language is at each step, and the reconstruction accuracy on the held-out test set, which measures how well the two agents understand each other. Every time a new abstraction is adopted, the corresponding subsequence of primitives in the messages gets replaced by a single abstraction, and the mean length drops.
 
 \begin{figure}[htbp]
     \centering

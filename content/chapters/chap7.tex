@@ -202,7 +202,7 @@ We pair the speaker ($\alpha = 1.80$, seed 42) with six listener seeds under M1.
     \label{fig:rq3-m2-dynamics}
 \end{figure}
 
-Pretraining raises epoch-0 accuracy for every listener, so it clearly accelerates the neural part of adaptation: the listener begins the interaction already better aligned on the shared primitive vocabulary. The symbolic phase remains, however. The primitive-fraction and mean-Q trajectories stay qualitatively similar to M1, with seed-level differences in speed but no change in the underlying pattern. The interpretation is therefore narrow: primitive pretraining helps the listener decode the basic tokens sooner, while the bandit still has to learn which speaker abstractions to trust, a question closely related to the learnability of semantic or symbolic systems~\cite{steinert-threlkeld_ease_2020}.
+Pretraining raises epoch-0 accuracy for every listener, so it clearly accelerates the neural part of adaptation: the listener begins the interaction already better aligned on the shared primitive vocabulary. The symbolic phase remains, however. The primitive-fraction and mean-Q trajectories stay qualitatively similar to M1, with seed-level differences in speed but no change in the underlying pattern. The interpretation is therefore narrow: primitive pretraining helps the listener decode the basic tokens sooner, while the bandit still has to learn which speaker abstractions to trust, a question closely related to the learnability of linguistic systems~\cite{steinert-threlkeld_ease_2020}.
 
 \subsection{M3: Increased Bandit Exploration}
 \label{sec:rq3-m3}
